@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>บ้าน & ที่ดินสวยลำปาง ByOnkanok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="description" content="ซื้อ-ขายบ้านและที่ดิน ครอบคลุมพื้นที่ จ.ลำปาง คัดสรรที่ดินแปลงใหญ่ ที่ดินปลูกบ้าน บ้านมือ 1 มือ 2 และอาคารพาณิชย์ ทำเลดี ราคาคุยกันได้ ยินดีปรึกษาฟรี โทร 088-269-2553">
+  <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+  <link rel="icon" href="img/other/iconti.png" type="image/png">
+  
+  <!-- เชื่อมต่อไฟล์ CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <img src="img/other/logo.png" alt="Logo" class="logo-img">
+        <div class="logo-text">
+          <div class="logo-top">บ้าน&ที่ดินสวย</div>
+          <div class="logo-bottom">ByOnkanok</div>
+        </div>
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li class="mobile-exit-section">
+  <button class="btn-exit" onclick="closeMenu()" aria-label="ปิดเมนู"></button>
+</li>
+        <li><a href="#" class="active" onclick="render('all')">หน้าแรก</a></li>
+       <li><a href="#listings">รายการทรัพย์สิน</a></li>
+        <li><a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank">ติดตามเรา</a></li>
+        <li><a href="tel:0882692553">โทรสอบถาม</a></li>
+        
+        <li class="mobile-social-section">
+          <a href="https://www.facebook.com/profile.php?id=6158593287210" target="_blank" class="social-link">
+            <img src="/img/other/fbicon.svg" alt="Facebook">
+          </a>
+          <a href="#" target="_blank" class="social-link">
+            <img src="/img/other/linelogo.svg" alt="LINE">
+          </a>
+          <a href="#" target="_blank" class="social-link">
+            <img src="/img/other/ms.svg" alt="Messenger">
+          </a>
+        </li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <div class="hamburger-icon"><span></span><span></span><span></span></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="detailModal" onclick="overlayClick(event)">
+    <div class="modal-box">
+      <div class="modal-gallery">
+        <button class="modal-close" onclick="closeDetail()">✕</button>
+        <div class="gal-track" id="galTrack"></div>
+        <button class="gal-btn gal-prev" onclick="galMove(-1)">‹</button>
+        <button class="gal-btn gal-next" onclick="galMove(1)">›</button>
+        <div class="gal-dots" id="galDots"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tag-row"><span class="modal-tag" id="modalTag"></span></div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-loc" id="modalLoc"></div>
+        <div class="detail-grid">
+          <div class="detail-item detail-price"><div class="detail-label">ราคา</div><div class="detail-value" id="modalPrice"></div></div>
+          <div class="detail-item"><div class="detail-label">เนื้อที่</div><div class="detail-value" id="modalArea"></div></div>
+        </div>
+        <div class="modal-section-label">รายละเอียด</div>
+        <div class="modal-desc-text" id="modalDesc"></div>
+      </div>
+      <div class="modal-cta">
+    <a href="tel:0882692553" class="btn-cta btn-call">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="#ffffff" class="cta-icon-img">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"/>
+          </svg>
+          <span>โทรสอบถาม</span> 
+        </a>
+        <a href="#" target="_blank" id="btnMap" class="btn-cta btn-map">
+          <img src="img/other/mapicon.svg" alt="Google Maps" class="cta-icon-img">
+          <span>Google Maps</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- HERO CAROUSEL -->
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hero-track" id="heroTrack"></div>
+      <button class="hero-arrow hero-arrow-prev" onclick="heroMove(-1)">‹</button>
+      <button class="hero-arrow hero-arrow-next" onclick="heroMove(1)">›</button>
+      <div class="hero-dots" id="heroDots"></div>
+      <div class="hero-progress" id="heroProgress"></div>
+    </div>
+
+    <!-- ANNOUNCE BAR -->
+    <div class="announce-bar">
+      <div class="ann-item">
+        <span>รวมที่ดิน &amp; บ้าน <strong>ครอบคลุมพื้นที่ลำปาง</strong></span>
+      </div>
+      <div class="ann-div"></div>
+      <div class="ann-item">
+        <span>ปรึกษาฟรี <strong>โทร 088-269-2553</strong></span>
+      </div>
+    </div>
+
+    <div class="page">
+      <!-- Section head -->
+      <div id="listings" class="section-head">
+        <div>
+          <div class="section-title">รายการทรัพย์สิน</div>
+          <div class="section-count" id="secLabel">&nbsp;</div>
+        </div>
+        <div class="mobile-sort-btn" style="position:relative;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="4" x2="7" y2="20"/><polyline points="3 8 7 4 11 8"/>
+            <line x1="17" y1="4" x2="17" y2="20"/><polyline points="13 16 17 20 21 16"/>
+          </svg>
+          <span>ราคา</span>
+          <select onchange="syncAndSort(this)" aria-label="เรียงลำดับตามราคาสำหรับมือถือ" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;">
+  <option value="default">ค่าเริ่มต้น</option>
+  <option value="price-asc">ราคาต่ำ ⇀ สูง</option>
+  <option value="price-desc">ราคาสูง ⇀ ต่ำ</option>
+</select>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar">
+        <button class="chip active" data-f="all">ทั้งหมด</button>
+        <button class="chip" data-f="house">บ้าน/ตึกคูหา</button>
+        <button class="chip" data-f="landhouse">ที่ดินเหมาะปลูกบ้าน</button>
+        <button class="chip" data-f="large-land">ที่แปลงใหญ่</button>
+         <select class="sort-select desktop-only" id="sortSelect" onchange="applySort()" aria-label="เรียงลำดับตามราคา">
+  <option value="default">ราคาค่าเริ่มต้น</option> 
+  <option value="price-asc">ราคาต่ำ ⇀ สูง</option>
+  <option value="price-desc">ราคาสูง ⇀ ต่ำ</option>
+</select>
+      </div>
+
+      <div class="grid" id="grid"></div>
+      
+      <!-- Pagination Container -->
+      <div class="pagination" id="pagination"></div>
+
+      <!-- FAB -->
+      <div class="fab-wrapper">
+
+        <div class="fab-options" id="fabOptions">
+        <a href="https://m.me/976806612172437" target="_blank" class="fab-mini msger" aria-label="Messenger">
+  <img src="/img/other/ms.svg" alt="Messenger" style="width: 100%; height: 100%; object-fit: contain;">
+</a>
+         <a href="https://line.me/ti/p/~YOUR_ID" target="_blank" class="fab-mini line" aria-label="LINE">
+      <img src="/img/other/linelogo.svg" alt="LINE" style="width: 100%; height: 100%; object-fit: contain;">
+          </a>
+          <a href="tel:0882692553" class="fab-mini tel">
+           <img src="/img/other/phoneicon.svg" alt="Messenger" style="width: 100%; height: 100%; object-fit: contain;">
+          </a>
+        </div>
+        <button class="fab-main" id="fabMain" onclick="toggleFAB()">
+          <img src="img/other/conicon.svg" alt="Call">
+        </button>
+      </div>
+
+    </div><!-- ปิดแท็ก .page -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/other/logo3.png" alt="Logo" class="footer-logo">
+        <div><div class="footer-name">บ้าน&ที่ดินสวย</div><div class="footer-sub">ByOnkanok</div></div>
+      </div>
+      <p class="footer-desc">รวมที่ดินสวย & บ้าน ราคาดีที่สุดในพื้นที่ลำปาง<br>ติดต่อเราได้ทุกช่องทาง ยินดีให้คำปรึกษาฟรี</p>
+      <div class="footer-links">
+        <a href="tel:0882692553">Tel 088-269-2553</a>
+        <a href="https://www.facebook.com/profile.php?id=61585932872107" target="_blank">Facebook Page</a>
+      </div>
+      <div class="footer-copy">© 2026 ByOnkanok · All rights reserved</div>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- เชื่อมต่อไฟล์ JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
